@@ -1,1 +1,14 @@
-<p>list works!</p>
+<p *ngIf="isVisible; else falseCondition"> 
+    {{ student?.data?.name }} 
+</p>
+
+<ng-template #falseCondition>
+    <p>Meowth!</p>
+</ng-template>
+
+<div [ngSwitch] = "value">
+    <span *ngSwitchCase="1">The value is {{ value }}</span>
+    <span *ngSwitchCase="2">The value is {{ value }}</span>
+    <span *ngSwitchCase="3">The value is {{ value }}</span>
+    <span *ngSwitchDefault>The value is standard.</span>
+</div>

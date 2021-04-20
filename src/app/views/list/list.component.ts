@@ -7,6 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
+  isVisible = true;
+  
+  student = {
+    data : {
+      name : "Ash"
+    }
+  }
+
+  value = 5;
+
   constructor() { }
 
   ngOnInit(): void {
