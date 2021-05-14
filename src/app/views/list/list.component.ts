@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
     }
   }
 
+  myList = [1, 2, 3, 4, 5];
   value = 5;
 
   constructor() { }
