@@ -21,6 +21,12 @@
     text-transform: capitalize;
     opacity: 0.95; 
   }
+
+  .selected-pkm{
+    position: fixed;
+    top: 35px;
+    left: 0;
+  }
   
   .poke-list-item {
     display: flex;
