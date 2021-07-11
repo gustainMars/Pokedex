@@ -1,21 +1,51 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+interface PokeListResponse{
+  created: string;
+  modified: string;
+  name: string;
+  pokemon: any[];
+  resource_url: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PokeapiService {
 
-  pokemonList = [
-    { name: 'Bulbasaur', number: 1, type1: 'grass', type2: 'poison' },
-    { name: 'Ivysaur', number: 2, type1: 'grass', type2: 'poison' },
-    { name: 'Venusaur', number: 3, type1: 'grass', type2: 'poison' },
-    { name: 'Charmander', number: 4, type1: 'fire', type2: '' },
-    { name: 'Charmeleon', number: 5, type1: 'fire', type2: '' },
-    { name: 'Charizard', number: 6, type1: 'fire', type2: 'flying' },
-    { name: 'Squirtle', number: 7, type1: 'water', type2: '' },
-    { name: 'Wartortle', number: 8, type1: 'water', type2: '' },
-    { name: 'Blastoise', number: 9, type1: 'water', type2: '' }
-  ];
+  private url = 'https://dev.treinaweb.com.br/pokeapi';
+  pokemonList = [];
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  // tslint:disable-next-line: typedef
+  listAll(){
+    this.http.get<PokeListResponse>(`${this.url}/pokedex/1`)
+    .subscribe(
+      response => {
+        response.pokemon.forEach(pokemon => {
+          pokemon.number = this.getNumberFromUrl(pokemon.resource_url);
+        });
+        this.pokemonList = this.sortPokemon(response.pokemon)
+        .filter(response.pokemon => response.pokemon.number < 1000);
+      }
+    );
+  }
+
+  // tslint:disable-next-line: typedef
+  private getNumberFromUrl(url: string){
+    return parseInt(url.replace(/.*\/(\d+)\/$/, '$1'), 10);
+  }
+
+  // tslint:disable-next-line: typedef
+  private sortPokemon(pokemonList: any){
+    return pokemonList.sort((a: any, b: any) => {
+      return (a.number > b.number ? 1 : -1);
+    });
+  }
+
 }
