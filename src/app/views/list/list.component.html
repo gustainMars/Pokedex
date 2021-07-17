@@ -18,9 +18,9 @@
 
 <ul class="poke-list">
     <li class="poke-list-item" *ngFor="let pkm of pokemonList" (mouseenter)="selectPkm(pkm)">
-        <img src="//serebii.net/pokedex-xy/icon/{{ pkm.number | number: '3.0-0' }}.png">        
-        <span>{{ pkm.number | number: '3.0-0' }} - {{ pkm.name }}</span>&nbsp;&nbsp;        
-        <img src="//serebii.net/pokedex-bw/type/{{ pkm.type1 }}.gif">
-        <img *ngIf="pkm.type2" src="//serebii.net/pokedex-bw/type/{{ pkm.type2 }}.gif">
+        <img src="//serebii.net/pokedex-xy/icon/{{ pkm['number'] | number: '3.0-0' }}.png">        
+        <span>{{ pkm['number'] | number: '3.0-0' }} - {{ pkm['name'] }}</span>&nbsp;&nbsp;        
+        <!--<img src="//serebii.net/pokedex-bw/type/{{ pkm.type1 }}.gif">
+        <img *ngIf="pkm.type2" src="//serebii.net/pokedex-bw/type/{{ pkm.type2 }}.gif">-->
     </li>
 </ul>
