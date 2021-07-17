@@ -5,12 +5,12 @@ interface PokeListResponse{
   created: string;
   modified: string;
   name: string;
-  pokemon: any[];
-  resource_url: string;
+  pokemon;
+  resource_uri: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class PokeapiService {
@@ -28,22 +28,22 @@ export class PokeapiService {
     .subscribe(
       response => {
         response.pokemon.forEach(pokemon => {
-          pokemon.number = this.getNumberFromUrl(pokemon.resource_url);
+          pokemon.number = this.getNumberFromUrl(pokemon.resource_uri);
         });
         this.pokemonList = this.sortPokemon(response.pokemon)
-        .filter(response.pokemon => response.pokemon.number < 1000);
+        .filter(pokemon => pokemon.number < 1000);
       }
     );
   }
 
   // tslint:disable-next-line: typedef
-  private getNumberFromUrl(url: string){
+  private getNumberFromUrl(url){
     return parseInt(url.replace(/.*\/(\d+)\/$/, '$1'), 10);
   }
 
   // tslint:disable-next-line: typedef
   private sortPokemon(pokemonList: any){
-    return pokemonList.sort((a: any, b: any) => {
+    return pokemonList.sort((a, b) => {
       return (a.number > b.number ? 1 : -1);
     });
   }
